@@ -1,0 +1,17 @@
+# Data files
+*.csv
+*.parquet
+*.pkl
+
+# Model artifacts
+model_artifacts/
+nb4_artifacts/
+
+# Environment / secrets
+.env
+*.pem
+__pycache__/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

@@ -46,7 +46,7 @@ the effect size.
 
 ## Live Demo
 
-Try it yourself: [link to your Streamlit app]
+Try it yourself: [[Streamlit app](https://cfpb-complaint-prediction-wjqtvlnw25lydkpkj5cnrg.streamlit.app)]
 
 Paste a real complaint narrative and see the full pipeline run live — Claude
 extracts structured features, the enriched XGBoost model predicts investigation

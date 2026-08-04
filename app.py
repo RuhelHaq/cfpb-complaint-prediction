@@ -6,15 +6,15 @@ import joblib
 import json
 
 # Paths to your saved artifacts
-ARTIFACT_DIR = '/home/ubuntu/data/nb4_artifacts'
-DATA_DIR = '/home/ubuntu/data'
+ARTIFACT_DIR = 'artifacts'
+DATA_DIR = 'artifacts'
 
 # Load the trained model
 model = xgb.XGBClassifier()
 model.load_model(f"{ARTIFACT_DIR}/model_enriched_v2.json")
 
 # Load the target encoder (from NB3)
-target_encoder = joblib.load(f"{DATA_DIR}/model_artifacts/target_encoder.pkl")
+target_encoder = joblib.load(f"{DATA_DIR}/target_encoder.pkl")
 
 # Load column lists and the extraction tool schema
 with open(f"{ARTIFACT_DIR}/enriched_cols.json") as f:

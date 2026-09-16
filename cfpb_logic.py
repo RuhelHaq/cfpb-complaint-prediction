@@ -3,13 +3,13 @@ import pandas as pd
 
 def load_artifacts():
   '''Load the core JSON artifacts used by the cfpb prediction pipeline'''
-  with open('baseline_cols.json') as f:
+  with open('artifacts/baseline_cols.json') as f:
     baseline_cols = json.load(f)
-  with open('enriched_cols.json') as f:
+  with open('artifacts/enriched_cols.json') as f:
     enriched_cols = json.load(f)
-  with open('llm_categorical_cols.json') as f:
+  with open('artifacts/llm_categorical_cols.json') as f:
     llm_categorical_cols = json.load(f)
-  with open('extraction_tool.json') as f:
+  with open('artifacts/extraction_tool.json') as f:
     extraction_tool = json.load(f)
   return baseline_cols, enriched_cols, llm_categorical_cols, extraction_tool
 

@@ -27,6 +27,10 @@ This project builds an end-to-end ML pipeline on 14.6M CFPB consumer complaints:
    structured features directly from complaint narratives (harm type, severity,
    discrimination flag, resolution requested, sentiment), then measured uplift
    against the baseline model
+5. **Testing & CI/CD** — extracted core pipeline logic (artifact loading, LLM
+   response validation, input row construction) into a standalone, testable
+   module, with a pytest suite covering both expected behavior and failure
+   modes, wired into GitHub Actions to run automatically on every push
 
 ## Key Finding
 
@@ -52,13 +56,35 @@ Paste a real complaint narrative and see the full pipeline run live — Claude
 extracts structured features, the enriched XGBoost model predicts investigation
 probability.
 
+## Testing & CI/CD
+
+Core pipeline logic — loading artifacts, validating LLM responses against
+the extraction tool's schema, and building model input rows — is extracted
+into `cfpb_logic.py` and covered by a 6-test pytest suite in
+`test_cfpb_logic.py`. Tests cover both correct behavior (valid inputs,
+correct output structure) and failure modes (missing fields, invalid enum
+values), using `pytest.raises` to confirm errors are caught rather than
+silently passed through.
+
+A GitHub Actions workflow (`.github/workflows/test.yml`) runs this suite
+automatically on every push, catching regressions before they can reach
+the deployed app.
+
 ## Repository Contents
 
 - `Notebook 1 - Data Wrangling and EDA.ipynb`
 - `Notebook 2 - Feature Engineering.ipynb`
 - `Notebook 3 - Model Training.ipynb`
 - `Notebook 4 - LLM Enrichment.ipynb`
+- `Notebook 5 - MLOps Testing & CI-CD.ipynb`
 - `app.py` — Streamlit demo app
+- `cfpb_logic.py` — core pipeline logic (artifact loading, response
+  validation, input row construction), extracted for testability
+- `test_cfpb_logic.py` — pytest suite covering `cfpb_logic.py`
+- `.github/workflows/test.yml` — CI workflow running the test suite on
+  every push
+- `artifacts/` — model, encoder, and schema artifacts used by the app and
+  test suite
 
 Note: raw data files and trained model artifacts are excluded from this repo
 (see `.gitignore`) due to size. The notebooks are runnable against the public
@@ -67,7 +93,7 @@ CFPB Consumer Complaint Database.
 ## Tech Stack
 
 Python, DuckDB, XGBoost, SHAP, Anthropic Claude API (tool use + Batches API),
-Streamlit, AWS EC2
+Streamlit, AWS EC2, pytest, GitHub Actions
 
 ## Author
 
